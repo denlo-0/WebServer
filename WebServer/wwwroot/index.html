@@ -22,12 +22,13 @@
                 method: "GET",
                 headers: { "Accept": "application/json" }
             });
+            let div = document.getElementById("response");
             // если запрос прошел нормально
             if (response.ok === true) {
                 const data = await response.json();
-                let div = document.getElementById("response");
                 div.innerHTML = data;
             }
+            else { div.innerHTML = 'Запрос не доступен' }
         }
 
     </script>

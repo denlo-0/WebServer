@@ -16,9 +16,14 @@ namespace WebServer.Controllers
 
         //вместо + использовать %2B 
         [HttpGet]
-        public string Get(string number)
+        public ActionResult<string> Get(string number)
         {
-            return ExternalRequests.ExternalRequests.GetValidPhone(number);
+            var a = ExternalRequests.ExternalRequests.GetValidPhone(number);
+            if (a == "Server error (exhausted number of requests)")
+                return StatusCode(405);
+            else
+                return Ok(a);
+
         }
     }
 }
