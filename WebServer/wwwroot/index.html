@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+</head>
+<body>
+
+    <form action="">
+        <p>Введите номер телефона и нажмите кнопку &laquo;Проверить&raquo;</p>
+        <p><input type="text" id="number"></p>
+        <p><input type="button" value="Проверить" onclick="CheckPhoneNumber()"></p>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        async function CheckPhoneNumber() {
+            // отправляет запрос и получаем ответ
+            let number = document.getElementById("number").value
+            number = number.replace('+','%2B')
+            const response = await fetch("/api/TelephoneNumber/?number=" + number, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            // если запрос прошел нормально
+            if (response.ok === true) {
+                const data = await response.json();
+                let div = document.getElementById("response");
+                div.innerHTML = data;
+            }
+        }
+
+    </script>
+
+</body>
+</html>
